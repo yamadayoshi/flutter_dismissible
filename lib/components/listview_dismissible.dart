@@ -1,10 +1,15 @@
+import 'dart:math';
+
+import 'package:dismissible/components/list_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class ListViewDismissible extends StatelessWidget {
-  final List list;
+class ListViewDismissible extends StatefulWidget {
+  @override
+  _ListViewDismissibleState createState() => _ListViewDismissibleState();
+}
 
-  ListViewDismissible(this.list);
-
+class _ListViewDismissibleState extends State<ListViewDismissible> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +28,11 @@ class ListViewDismissible extends StatelessWidget {
           ];
         },
         body: ListView.builder(
-          itemCount: list.length,
+          itemCount: Provider.of<ListItem>(context, listen: true).getLength(),
           itemBuilder: (context, index) => Column(
             children: [
               Dismissible(
-                key: Key(index.toString()),
+                key: Key((index + Random.secure().nextInt(8888)).toString()),
                 direction: DismissDirection.endToStart,
                 background: Container(
                   decoration: BoxDecoration(color: Color(0xFFFFE6E6)),
@@ -56,7 +61,8 @@ class ListViewDismissible extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(list[index]),
+                        Text(Provider.of<ListItem>(context, listen: true)
+                            .list[index]),
                         Text.rich(
                           TextSpan(
                             text: "R43423424",
@@ -67,7 +73,10 @@ class ListViewDismissible extends StatelessWidget {
                   ],
                 ),
                 onDismissed: (direction) {
-                  list.removeAt(index);
+                  Provider.of<ListItem>(context, listen: false).deleteAt(index);
+
+                  print(
+                      'Left: ${Provider.of<ListItem>(context, listen: false).getLength()}');
                 },
               )
             ],
@@ -75,18 +84,5 @@ class ListViewDismissible extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  List _buildList(int count) {
-    List<Widget> listItems = List();
-
-    for (int i = 0; i < count; i++) {
-      listItems.add(new Padding(
-          padding: new EdgeInsets.all(20.0),
-          child: new Text('Item ${i.toString()}',
-              style: new TextStyle(fontSize: 25.0))));
-    }
-
-    return listItems;
   }
 }

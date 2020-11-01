@@ -48,7 +48,7 @@ class _ListViewDismissibleState extends State<ListViewDismissible> {
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
-                              color: Color(0xFFF5F000),
+                              color: Color(0xFFF5F0FF),
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
                                 image: NetworkImage(

@@ -1,10 +1,12 @@
+import 'package:dismissible/models/item.dart';
 import 'package:flutter/cupertino.dart';
 
 class ListItem extends ChangeNotifier {
-  List<String> list = [];
+  List<Item> list = [];
 
   void add() {
-    list.add('myValue ${list.length}');
+    list.add(Item('value ${list.length}', 'description ${list.length}',
+        'https://images.saymedia-content.com/.image/t_share/MTc0NDYwODk2OTg2MDgwNjE2/best-wizards-mtg.jpg'));
     notifyListeners();
   }
 

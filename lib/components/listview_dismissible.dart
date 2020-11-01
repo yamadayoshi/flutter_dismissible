@@ -48,8 +48,14 @@ class _ListViewDismissibleState extends State<ListViewDismissible> {
                           child: Container(
                             padding: EdgeInsets.all(10.0),
                             decoration: BoxDecoration(
-                              color: Color(0xFFF5F6F9),
+                              color: Color(0xFFF5F000),
                               borderRadius: BorderRadius.circular(15),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                    Provider.of<ListItem>(context, listen: true)
+                                        .list[index]
+                                        .urlImage),
+                              ),
                             ),
                           ),
                         ),
@@ -62,10 +68,13 @@ class _ListViewDismissibleState extends State<ListViewDismissible> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(Provider.of<ListItem>(context, listen: true)
-                            .list[index]),
+                            .list[index]
+                            .name),
                         Text.rich(
                           TextSpan(
-                            text: "R43423424",
+                            text: Provider.of<ListItem>(context, listen: true)
+                                .list[index]
+                                .description,
                           ),
                         )
                       ],
